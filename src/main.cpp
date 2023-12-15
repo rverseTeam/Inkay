@@ -129,12 +129,12 @@ INITIALIZE_PLUGIN() {
         for (const auto& patch : url_patches) {
             write_string(patch.address, patch.url);
         }
-        DEBUG_FUNCTION_LINE("rvurss URL and NoSSL patches applied successfully.");
-        StartNotificationThread("Nukes are now legal.");
+        DEBUG_FUNCTION_LINE("rverse URL and NoSSL patches applied successfully.");
+        StartNotificationThread("Using rverse.");
     }
     else {
-        DEBUG_FUNCTION_LINE("rvurss URL and NoSSL patches skipped.");
-        StartNotificationThread("rvurss patches didn't work. Cry About It.");
+        DEBUG_FUNCTION_LINE("rverse URL and NoSSL patches skipped.");
+        StartNotificationThread("Not using rverse");
     }
 
     MCP_Close(mcp);
