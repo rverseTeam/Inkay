@@ -1,4 +1,4 @@
-# Inkay - Aroma patches for Pretendo
+# Inkay - Aroma patches for Pretendoo
 
 [![Pretendo network logo](https://github.com/PretendoNetwork/website/raw/master/public/assets/images/opengraph/opengraph-image.png)](https://pretendo.network)
 

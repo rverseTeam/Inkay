@@ -19,11 +19,11 @@ WUMS_ROOT := $(DEVKITPRO)/wums
 # DATA is a list of directories containing data files
 # INCLUDES is a list of directories containing header files
 #-------------------------------------------------------------------------------
-TARGET		:=	Inkay-rverse
+TARGET		:=	Inkay-pretendo
 BUILD		:=	build
-SOURCES		:=	src src/utils
+SOURCES		:=	src src/patches src/utils src/ext/inih
 DATA		:=	data
-INCLUDES	:=	src
+INCLUDES	:=	src src/ext/inih
 
 #-------------------------------------------------------------------------------
 # options for code generation
@@ -33,14 +33,14 @@ CFLAGS	:=	-g -Wall -O2 -ffunction-sections \
 
 CFLAGS	+=	$(INCLUDE) -D__WIIU__ -D__WUT__ -D__WUPS__
 
-CXXFLAGS	:= $(CFLAGS)
+CXXFLAGS	:= $(CFLAGS) -std=c++20
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-g $(ARCH) $(RPXSPECS) -Wl,-Map,$(notdir $*.map)
 
 LDFLAGS	+=	-T$(WUMS_ROOT)/share/libkernel.ld $(WUPSSPECS)
 
-LIBS	:= -lwups -lmocha -lkernel -lwut -lnotifications
+LIBS	:= -lwups -lmocha -lkernel -lwut -lnotifications -lfunctionpatcher
 
 #-------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level
