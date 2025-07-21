@@ -2,14 +2,18 @@
     Copyright 2023 Ash Logan <ash@heyquark.com>
     Copyright 2019 Maschell
 
-    Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby
-    granted, provided that the above copyright notice and this permission notice appear in all copies.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL
-    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
-    IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-    PERFORMANCE OF THIS SOFTWARE.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "olv_urls.h"
@@ -47,7 +51,7 @@ bool path_is_olv(const char* path) {
 
 void new_rpl_loaded(OSDynLoad_Module module, void* ctx, OSDynLoad_NotifyReason reason, OSDynLoad_NotifyData* rpl) {
     if (!Config::connect_to_network) {
-        DEBUG_FUNCTION_LINE("Inkay-rverse: Miiverse patches skipped.");
+        DEBUG_FUNCTION_LINE("rverse: Miiverse patches skipped.");
         return;
     }
 
@@ -60,7 +64,7 @@ void new_rpl_loaded(OSDynLoad_Module module, void* ctx, OSDynLoad_NotifyReason r
 
 bool setup_olv_libs() {
     if (!Config::connect_to_network) {
-        DEBUG_FUNCTION_LINE("Inkay-rverse: Miiverse patches skipped.");
+        DEBUG_FUNCTION_LINE("rverse: Miiverse patches skipped.");
         return false;
     }
 
@@ -68,14 +72,14 @@ bool setup_olv_libs() {
 
     auto olvLoaded = check_olv_libs();
     if (!olvLoaded) {
-        DEBUG_FUNCTION_LINE("Inkay-rverse: no olv, quitting for now\n");
+        DEBUG_FUNCTION_LINE("rverse: no olv, quitting for now\n");
         return false;
     }
 
     //wish there was a better way than "blow through MEM2"
     uint32_t base_addr, size;
     if (OSGetMemBound(OS_MEM2, &base_addr, &size)) {
-        DEBUG_FUNCTION_LINE("Inkay-rverse: OSGetMemBound failed!");
+        DEBUG_FUNCTION_LINE("rverse: OSGetMemBound failed!");
         return false;
     }
 

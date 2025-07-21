@@ -2,14 +2,18 @@
     Copyright 2023 Ash Logan <ash@heyquark.com>
     Copyright 2019 Maschell
 
-    Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby
-    granted, provided that the above copyright notice and this permission notice appear in all copies.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL
-    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
-    IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-    PERFORMANCE OF THIS SOFTWARE.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "config.h"
@@ -43,7 +47,7 @@ DECL_FUNCTION(int, FSOpenFile, FSClient *client, FSCmdBlock *block, char *path, 
     const char *initialOma = "vol/content/initial.oma";
 
     if (!Config::connect_to_network) {
-        DEBUG_FUNCTION_LINE("Inkay-rverse: Miiverse patches skipped.");
+        DEBUG_FUNCTION_LINE("rverse: Miiverse patches skipped.");
         return real_FSOpenFile(client, block, path, mode, handle, error);
     }
 
@@ -52,7 +56,7 @@ DECL_FUNCTION(int, FSOpenFile, FSClient *client, FSCmdBlock *block, char *path, 
         //we do it when loading this file since it should only load once, preventing massive lag spikes as it searches all of MEM2 xD
         //WHBLogUdpInit();
 
-        DEBUG_FUNCTION_LINE("Inkay-rverse: hi i thnik im ready to do work\n");
+        DEBUG_FUNCTION_LINE("rverse: hi i thnik im ready to do work\n");
 
         auto olv_ok = setup_olv_libs();
         // Patch applet binary too
@@ -62,7 +66,7 @@ DECL_FUNCTION(int, FSOpenFile, FSClient *client, FSCmdBlock *block, char *path, 
     } else if (strcmp("vol/content/browser/rootca.pem", path) == 0) {
         int ret = real_FSOpenFile(client, block, path, mode, handle, error);
         rootca_pem_handle = *handle;
-        DEBUG_FUNCTION_LINE("Inkay-rverse: Found Miiverse CA, replacing...");
+        DEBUG_FUNCTION_LINE("rverse: Found Miiverse CA, replacing...");
         return ret;
     }
 
@@ -72,7 +76,7 @@ DECL_FUNCTION(int, FSOpenFile, FSClient *client, FSCmdBlock *block, char *path, 
 DECL_FUNCTION(FSStatus, FSReadFile, FSClient *client, FSCmdBlock *block, uint8_t *buffer, uint32_t size, uint32_t count,
               FSFileHandle handle, uint32_t unk1, uint32_t flags) {
     if (size != 1) {
-        DEBUG_FUNCTION_LINE("Inkay-rverse: Miiverse CA replacement failed!");
+        DEBUG_FUNCTION_LINE("rverse: Miiverse CA replacement failed!");
     }
 
     if (rootca_pem_handle && *rootca_pem_handle == handle) {
